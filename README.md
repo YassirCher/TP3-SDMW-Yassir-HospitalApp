@@ -168,7 +168,7 @@ Récupère un utilisateur par son nom d’utilisateur (utile pour l’authentifi
 
 # Tests et captures d'écran
 
-# Affichage des patients avec pagination :
+## Affichage des patients avec pagination :
 localhost:8086 nous rend vers la page login
 
 ![image](https://github.com/user-attachments/assets/c940a833-3311-4658-8f2c-261839f2edfa)
