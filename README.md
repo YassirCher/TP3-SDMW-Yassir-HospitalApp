@@ -38,13 +38,14 @@ Pagination : Implémentée avec 4 patients par page, utilisant Spring Data JPA (
 Recherche de patients : Recherche par nom via le paramètre keyword dans l'URL.
 Suppression d'un patient : Réservée aux utilisateurs avec le rôle ADMIN via /admin/delete.
 Améliorations supplémentaires :
-Interface utilisateur avec Thymeleaf et Bootstrap pour un design responsive.
-Ajout d'une page d'erreur (non présente dans les vidéos
+- Interface utilisateur avec Thymeleaf et Bootstrap pour un design responsive.
+- Ajout d'une page d'erreur (non présente dans les vidéos
 
 ### Partie 2 : Template et validation
 Selon les instructions de la vidéo 2 :
 Page template : Templates Thymeleaf (patients.html, formPatients.html, editPatient.html, login.html, notAuthorized.html) pour une interface cohérente.
 Validation des formulaires : Validation des données des patients (par exemple, nom non vide, format de date correct) avec affichage des erreurs via BindingResult.
+
 Ajout et modification de patients via des formulaires sécurisés.
 
 ### Partie 3 : Sécurité avec Spring Security
