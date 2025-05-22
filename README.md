@@ -36,6 +36,7 @@ Affichage des patients : Liste les patients avec leurs informations (nom, date d
 
 Pagination : Implémentée avec 4 patients par page, utilisant Spring Data JPA (PageRequest).
 Recherche de patients : Recherche par nom via le paramètre keyword dans l'URL.
+
 Suppression d'un patient : Réservée aux utilisateurs avec le rôle ADMIN via /admin/delete.
 Améliorations supplémentaires :
 - Interface utilisateur avec Thymeleaf et Bootstrap pour un design responsive.
@@ -44,6 +45,7 @@ Améliorations supplémentaires :
 ### Partie 2 : Template et validation
 Selon les instructions de la vidéo 2 :
 Page template : Templates Thymeleaf (patients.html, formPatients.html, editPatient.html, login.html, notAuthorized.html) pour une interface cohérente.
+
 Validation des formulaires : Validation des données des patients (par exemple, nom non vide, format de date correct) avec affichage des erreurs via BindingResult.
 
 Ajout et modification de patients via des formulaires sécurisés.
@@ -52,9 +54,9 @@ Ajout et modification de patients via des formulaires sécurisés.
 
 La sécurité est implémentée selon les trois approches décrites dans les vidéos :
 
-InMemory Authentication (vidéo 3) : Utilisateurs codés en dur (user1, user2, admin) avec rôles USER et ADMIN.
-JDBC Authentication (vidéo 4) : Utilisateurs stockés dans une base de données MySQL avec les tables users et authorities définies dans schema.sql.
-UserDetailsService (vidéo 5) : Implémentation personnalisée via UserDetailServiceImpl pour charger les utilisateurs depuis la table AppUser.
+- InMemory Authentication (vidéo 3) : Utilisateurs codés en dur (user1, user2, admin) avec rôles USER et ADMIN.
+- JDBC Authentication (vidéo 4) : Utilisateurs stockés dans une base de données MySQL avec les tables users et authorities définies dans schema.sql.
+- UserDetailsService (vidéo 5) : Implémentation personnalisée via UserDetailServiceImpl pour charger les utilisateurs depuis la table AppUser.
 
 Les fonctionnalités de sécurité incluent :
 - Protection des routes (ex. /admin/delete et /admin/save réservés aux ADMIN).
@@ -108,8 +110,11 @@ Le fichier SecurityConfig.java configure Spring Security avec trois approches :
 Afficher une liste paginée de patients en filtrant par un mot-clé (nom du patient).
 #### Paramètres :
 Model model : sert à passer les données à la vue (patients.html).
+
 int p (page) : indique le numéro de la page actuelle (par défaut 0).
+
 int s (size) : nombre d’éléments à afficher par page (par défaut 4).
+
 String kw (keyword) : mot-clé pour filtrer les patients par nom (par défaut chaîne vide).
 
 #### Ce que fait la fonction :
@@ -158,6 +163,8 @@ Retire un rôle existant d’un utilisateur.
 
 - loadUserByUsername(...) :
 Récupère un utilisateur par son nom d’utilisateur (utile pour l’authentification).
+
+---
 
 # Tests et captures d'écran
 
@@ -233,23 +240,9 @@ localhost:8086 nous rend vers la page login
 
   ![image](https://github.com/user-attachments/assets/6e617385-b776-458c-89e2-a621adb72b9b)
 
+---
+
 # Conclusion
 
 Ce projet répond aux exigences du TP3 en implémentant une application web complète avec Spring Boot, Thymeleaf, et Spring Security. Les fonctionnalités de gestion des patients (affichage, pagination, recherche, suppression, ajout, modification) et la sécurité (authentification InMemory, JDBC, et UserDetailsService) ont été soigneusement implémentées. La classe AccountServiceImpl permet une gestion efficace des utilisateurs et des rôles, avec des fonctionnalités de création et de suppression. Les templates Thymeleaf assurent une interface utilisateur cohérente et responsive. Les tests, y compris le dépannage de l'erreur 404 pour /admin/save, confirment le bon fonctionnement de l'application.
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
 
