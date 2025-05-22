@@ -70,7 +70,8 @@ Vue : Templates Thymeleaf dans src/main/resources/templates.
 Contrôleur : PatientController pour les opérations CRUD et SecurityController pour la gestion des pages de sécurité.
 Base de données : MySQL pour la production, avec H2 comme alternative pour le développement.
 
-![image](https://github.com/user-attachments/assets/4f9fac7b-7a61-4678-981a-b719ca335378)
+![image](https://github.com/user-attachments/assets/a4647362-ca80-46a7-a500-c67a19833873)
+
 ---
 ## Explication du code :
 ### Configuration de la sécurité (SecurityConfig.java)
@@ -78,9 +79,13 @@ Base de données : MySQL pour la production, avec H2 comme alternative pour le d
 Le fichier SecurityConfig.java configure Spring Security avec trois approches :
 
 - InMemory Authentication (commentée) : Définit des utilisateurs statiques (user1, user2, admin) avec des mots de passe hachés via BCryptPasswordEncoder.
-![image](https://github.com/user-attachments/assets/6dae64bc-f604-4052-9bbc-fd1424b6e712)
+  
+![image](https://github.com/user-attachments/assets/39dfb258-b5b6-4f63-8dd7-81f75c2bafe3)
+
 - JDBC Authentication (commentée) : Utilise les tables users et authorities définies dans schema.sql pour stocker les utilisateurs.
-![image](https://github.com/user-attachments/assets/9bc65c10-fb29-4e13-a706-508e0969a5c2)
+
+![image](https://github.com/user-attachments/assets/68ece76b-922d-4e3f-b091-458fef196536)
+
 
 * schema.sql:
   
@@ -88,10 +93,14 @@ Le fichier SecurityConfig.java configure Spring Security avec trois approches :
   create table IF NOT EXISTS authorities ( username varchar(50) not null, authority varchar(50) not null, constraint fk_authorities_users foreign key(username) references users(username) ); 
   create unique index IF NOT EXISTS ix_auth_username on authorities (username, authority); </code></pre>
 - UserDetailsService (active) : Utilise UserDetailServiceImpl pour charger les utilisateurs depuis la table AppUser via AccountService.
-  ![image](https://github.com/user-attachments/assets/5a5b88d3-f1bf-4925-acee-dbfd0f97bd78)
+- 
+  ![image](https://github.com/user-attachments/assets/5fb5e859-7033-428d-9dff-1bf750b87bb7)
+
 
 ### Configuration du controlleur (PatientController.java) :
-![image](https://github.com/user-attachments/assets/6a6ab0a3-1d8b-455d-8961-2723c3e8af84)
+
+![image](https://github.com/user-attachments/assets/4758adf3-64fd-4fcb-8a65-7c65d57ea21a)
+
 
 * Fonction index(...) :
 #### But :
@@ -123,7 +132,9 @@ Redirige vers la vue de la liste avec les mêmes paramètres de recherche et pag
  Il existe d'autres fonctions dans ce fichier !
  
 ## fichier AccountServiceImpl :
-![image](https://github.com/user-attachments/assets/c0a8b81d-85a4-4e71-9ee7-4a2f0a7fe536)
+
+![image](https://github.com/user-attachments/assets/258bf8d9-beeb-4ffc-881f-7f64bd326154)
+
 
 Ce fichier définit l’implémentation du service AccountService, qui gère la gestion des utilisateurs et des rôles dans l’application.
 Il est annoté avec :
@@ -151,47 +162,57 @@ Récupère un utilisateur par son nom d’utilisateur (utile pour l’authentifi
 
 # Affichage des patients avec pagination :
 localhost:8086 nous rend vers la page login
-![image](https://github.com/user-attachments/assets/f6d5d63e-4dc9-43c3-a496-f863ac6aa2a0)
+
+![image](https://github.com/user-attachments/assets/c940a833-3311-4658-8f2c-261839f2edfa)
+
 - Role Utilisateur :
  username : user2
  pwd : 1234
- ![image](https://github.com/user-attachments/assets/97f69e19-ef5b-4053-89b3-d75bac27854f)
+ ![image](https://github.com/user-attachments/assets/9dced65f-69e3-4685-af35-6941dbfa1cbe)
+
 
  Comme user2 n'a pas le role ADMIN il ne peux pas supprimer ou modifier un patient,mais il peux effectuer une recherche
- ![image](https://github.com/user-attachments/assets/6b03aedf-af60-421c-a6c0-5b47b8aaab20)
- ![image](https://github.com/user-attachments/assets/1d9a8be5-e411-418a-b62e-90ee19f9875f)
+ ![image](https://github.com/user-attachments/assets/ec13ab98-bd82-4ada-ab1b-6ae140df3511)
+ ![image](https://github.com/user-attachments/assets/476c4252-7437-4a52-a4b2-76d827b0c4ec)
+ ![image](https://github.com/user-attachments/assets/b80166ac-54ce-4a64-921e-dc9a55f3a411)
+
  
  il peut aussi se deconnecter :
- ![image](https://github.com/user-attachments/assets/c5a6afa8-1705-4c63-ab00-40082b7841e2)
+
+ ![image](https://github.com/user-attachments/assets/f5021e9d-916e-4e9f-948e-9255498003f6)
+
 - Role Admin :
   username : admin
   pwd : 1234
-  ![image](https://github.com/user-attachments/assets/6919c34b-2535-41c4-9cdc-f04e3193c477)
+ 
+  ![image](https://github.com/user-attachments/assets/c4f8a798-d3cc-44c5-817b-9ba9b3a67bd5)
+
   L’administrateur peut effectuer toutes les fonctionnalités de l’utilisateur. En plus de cela, il peut supprimer, modifier ou ajouter un patient.
   
-  ![image](https://github.com/user-attachments/assets/9497d99c-3003-4068-ac7d-ae50068f5e23)
   - Critere de validation des formulaires:
   Le nom doit comporter au moins 3 caractères, et le score doit être supérieur à 5.
   
   Ajout d'un nouvel patient :
-  
-  ![image](https://github.com/user-attachments/assets/a4921010-a566-404a-83b1-1b7851a6c2bc)
-  ![image](https://github.com/user-attachments/assets/8afa3233-9233-4f6a-8362-aed96c30f224)
-  ![image](https://github.com/user-attachments/assets/48eda0e1-c7ed-4baa-af90-b632e2144e00)
+  ![image](https://github.com/user-attachments/assets/e5a63114-09ba-45a6-b41d-ab864394dce8)
+  ![image](https://github.com/user-attachments/assets/0af4cedf-6ac0-415b-bb36-2aa2fea895f2)
+
+
 
   modification d'un patient :
+  ![image](https://github.com/user-attachments/assets/788e30c1-ca21-481b-a03a-de4d20ee795f)
+  ![image](https://github.com/user-attachments/assets/96e851ed-4040-493d-b167-48ab9e162456)
 
-  ![image](https://github.com/user-attachments/assets/29c5dee2-a19f-443e-8dd4-0a75a72869c3)
-  ![image](https://github.com/user-attachments/assets/05e7c825-f81c-4724-ab3c-20fb9fd9c0f1)
-  
   supression d'un patient :
 
-  ![image](https://github.com/user-attachments/assets/7ead5aad-d6e6-4bc1-88ab-07bd4adcaecf)
-  ![image](https://github.com/user-attachments/assets/8054e633-2c1d-45ed-812b-6b07dbd49ec9)
+  ![image](https://github.com/user-attachments/assets/4ca98b2c-fd0f-41e4-95f0-8670d5ea4e1d)
+  ![image](https://github.com/user-attachments/assets/859cee49-d4d6-411a-9db0-50c704315e80)
+
+
 
   Si un utilisateur essaie d’exécuter une requête à laquelle il n’a pas le droit d’accéder, il reçoit un avertissement.
   
-  ![image](https://github.com/user-attachments/assets/f0951b99-e78d-4208-a34f-29c09db6be2c)
+  ![image](https://github.com/user-attachments/assets/b0ee3732-59e3-4b35-b587-c64aea985744)
+
 
   Comme vous pouvez le voir ici, l’utilisateur user2, ayant uniquement le rôle user, a essayé de supprimer un utilisateur via l’URL : http://localhost:8086/admin/delete?id=34&keyword=yassir&page=0, mais il n’a pas pu.
   Il existe aussi user1, avec le mot de passe 1234, à qui le rôle d’administrateur a été attribué depuis la base de données. Il peut effectuer les mêmes fonctionnalités qu’un administrateur. Cependant, lors du premier 
@@ -199,15 +220,18 @@ localhost:8086 nous rend vers la page login
 
   ### Pour pouvoir créer des patients, il faut décommenter cette partie du code.
 
-  ![image](https://github.com/user-attachments/assets/4b4c6354-2344-4988-b550-9d8ee2aca6ef)
+  ![image](https://github.com/user-attachments/assets/c073ee5e-265c-428c-bec9-7269a190deab)
 
   Lors du lancement du projet, vous obtiendrez les tables suivantes :
 
   DB Link : http://localhost/phpmyadmin/index.php?route=/database/structure&db=yassir-hospital-db
 
-  ![image](https://github.com/user-attachments/assets/bd74c1d9-8044-4c3f-866b-2aabb2ec4436)
+  ![image](https://github.com/user-attachments/assets/5c729c13-b693-4909-a0d6-e93e808337ac)
 
-  
+ Une page d'erreur s'affiche si l'utilisateur essaie d'accéder à un lien erroné.
+
+  ![image](https://github.com/user-attachments/assets/6e617385-b776-458c-89e2-a621adb72b9b)
+
 # Conclusion
 
 Ce projet répond aux exigences du TP3 en implémentant une application web complète avec Spring Boot, Thymeleaf, et Spring Security. Les fonctionnalités de gestion des patients (affichage, pagination, recherche, suppression, ajout, modification) et la sécurité (authentification InMemory, JDBC, et UserDetailsService) ont été soigneusement implémentées. La classe AccountServiceImpl permet une gestion efficace des utilisateurs et des rôles, avec des fonctionnalités de création et de suppression. Les templates Thymeleaf assurent une interface utilisateur cohérente et responsive. Les tests, y compris le dépannage de l'erreur 404 pour /admin/save, confirment le bon fonctionnement de l'application.
